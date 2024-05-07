@@ -72,7 +72,8 @@
 
             if (isArray(a) && b) {
                 for (var i=0; i<a.length; i++) {
-                    if (b[i] === undefined) aplus.push(i);
+					// 可能new值本身就是undefined误报修改
+                    if (a[i] !== undefined && b[i] === undefined) aplus.push(i);
                 }
             } else {
                 for(var i in a){
@@ -86,7 +87,8 @@
 
             if (isArray(b) && a) {
                 for (var j=0; j<b.length; j++) {
-                    if (a[j] === undefined) bplus.push(j);
+					// 可能old值本身就是undefined误报删除
+                    if (a[i] === undefined && b[i] !== undefined) bplus.push(j);
                 }
             } else {
                 for(var j in b){
@@ -792,7 +794,7 @@
 
     };    
 
-    setInterval(loop, 50);
+    setInterval(loop, 500);
 
     WatchJS.watch = watch;
     WatchJS.unwatch = unwatch;
